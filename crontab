@@ -1,0 +1,2 @@
+MAILTO=""
+*/15 * * * python ~/current/pypi_mirrors.py > ~/output/index.html
