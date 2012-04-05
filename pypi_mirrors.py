@@ -41,7 +41,7 @@ def humanize_date_difference(now, otherdate=None, offset=None):
     https://gist.github.com/207624 
     """
     if otherdate:
-        dt = otherdate - now
+        dt =  now - otherdate
         offset = dt.seconds + (dt.days * 60*60*24)
     if offset:
         delta_s = offset % 60
@@ -54,8 +54,8 @@ def humanize_date_difference(now, otherdate=None, offset=None):
     else:
         raise ValueError("Must supply otherdate or offset (from now)")
         
-    if abs(delta_d) > 0:
-        return "%d days, %d hours, %d minutes ago" % (abs(delta_d), delta_h, delta_m)
+    if delta_d > 0:
+        return "%d days, %d hours, %d minutes ago" % (delta_d, delta_h, delta_m)
     if delta_h > 0:
         return "%d hours, %d minutes ago" % (delta_h, delta_m)
     if delta_m > 0:
