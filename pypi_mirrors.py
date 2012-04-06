@@ -19,9 +19,9 @@ page = """<html><head><title>PyPI Mirror Status</title></head><body>
 {body}
 
 <hr>
-Page Last updated at {date_now}
-Build with:
-<a href='https://github.com/kencochrane/pypi-mirrors'>pypi-mirrors</a><br />
+Page Last updated at {date_now} <br />
+Built with:
+<a href='https://github.com/kencochrane/pypi-mirrors'>pypi-mirrors</a>
 </body>
 </html>
 """
