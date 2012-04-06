@@ -18,7 +18,7 @@ page = """<html><head><title>PyPI Mirror Status</title></head><body>
 {body}
 
 <hr>
-Page Last updated at {date_now} <br />
+Page last updated at {date_now} <br />
 Built with:
 <a href='https://github.com/kencochrane/pypi-mirrors'>pypi-mirrors</a>
 </body>
@@ -87,9 +87,8 @@ def humanize_date_difference(now, otherdate=None, offset=None):
         return "%d seconds ago" % delta_s
 
 
-def gather_data(mirror_url=MIRROR_URL):
+def gather_data(now, mirror_url=MIRROR_URL):
     """ get the data we need put in dict """
-    now = datetime.datetime.now()
     results = []
     for ml in get_mirrors():
         m_url = mirror_url.format(ml)
@@ -111,8 +110,8 @@ def gather_data(mirror_url=MIRROR_URL):
 
 
 def generate_page(format='html'):
-    now = datetime.datetime.now()
-    data = gather_data()
+    now = datetime.datetime.utcnow()
+    data = gather_data(now)
     body = "<table border='1' width='50%'>"
     body += "<tr><th>Mirror</th><th>Last update</th><th>Age</th></tr>"
     row = "<tr><td>{0}</td><td>{1}</td><td>{2}</td></tr>"
