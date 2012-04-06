@@ -6,4 +6,4 @@ echo "Make output directory"
 mkdir -p ~/output
 
 echo "Run script to get updated information"
-python ~/current/pypi_mirrors.py > ~/output/index.html
+/home/dotcloud/env/bin/python /home/dotcloud/current/pypi_mirrors.py > /home/dotcloud/output/index.html
