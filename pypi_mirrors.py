@@ -49,8 +49,10 @@ def ping_mirror(mirror_url):
 def parse_date(date_str):
     """ parse the date the get back from the mirror """
     if len(date_str) == 17:
+        # Used on official mirrors
         date_fmt = '%Y%m%dT%H:%M:%S'
     else:
+        # Canonical ISO-8601 format (compliant with PEP 381)
         date_fmt = '%Y-%m-%dT%H:%M:%S'
     return datetime.datetime.strptime(date_str, date_fmt)
 
@@ -66,25 +68,23 @@ def humanize_date_difference(now, otherdate=None, offset=None):
     """
     if otherdate:
         dt = now - otherdate
-        offset = dt.seconds + (dt.days * 60 * 60 * 24)
-    if offset:
-        offset, delta_s = divmod(offset, 60)
-        offset, delta_m = divmod(offset, 60)
-        offset, delta_h = divmod(offset, 24)
-        delta_d = offset
+        delta_d, offset = dt.days, dt.seconds
+    elif offset:
+        delta_d, offset = divmod(offset, 60 * 60 * 24)
     else:
         raise ValueError("Must supply otherdate or offset (from now)")
+    offset, delta_s = divmod(offset, 60)
+    delta_h, delta_m = divmod(offset, 60)
 
-    if delta_d > 0:
-        return "%d days, %d hours, %d minutes ago" % (delta_d,
-                                                     delta_h,
-                                                     delta_m)
-    if delta_h > 0:
-        return "%d hours, %d minutes ago" % (delta_h, delta_m)
-    if delta_m > 0:
-        return "%d minutes, %d seconds ago" % (delta_m, delta_s)
+    if delta_d:
+        fmt = "{d:d} days, {h:d} hours, {m:d} minutes ago"
+    elif delta_h:
+        fmt = "{h:d} hours, {m:d} minutes ago"
+    elif delta_m:
+        fmt = "{m:d} minutes, {s:d} seconds ago"
     else:
-        return "%d seconds ago" % delta_s
+        fmt = "{s:d} seconds ago"
+    return fmt.format(d=delta_d, h=delta_h, m=delta_m, s=delta_s)
 
 
 def gather_data(now, mirror_url=MIRROR_URL):
@@ -114,11 +114,9 @@ def generate_page(format='html'):
     data = gather_data(now)
     body = "<table border='1' width='50%'>"
     body += "<tr><th>Mirror</th><th>Last update</th><th>Age</th></tr>"
-    row = "<tr><td>{0}</td><td>{1}</td><td>{2}</td></tr>"
+    row = "<tr><td>{mirror}</td><td>{last_update}</td><td>{how_old}</td></tr>"
     for d in data:
-        body += row.format(d.get("mirror", "n/a"),
-                        d.get("last_update", "Unavailable"),
-                        d.get("how_old", "Unavailable"))
+        body += row.format(**d)
     body += "</table>"
     page_out = page.format(body=body, date_now=now)
     print page_out
