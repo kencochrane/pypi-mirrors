@@ -9,6 +9,7 @@ MIRRORS = [
      'pypi.crate.io',
 ]
 MIRROR_URL = "http://{0}/last-modified"
+MASTER_URL = "http://{0}/daytime"
 
 #TODO: replace with a template system and nice html/css
 page = """<html><head><title>PyPI Mirror Status</title></head><body>
@@ -32,7 +33,8 @@ def get_mirrors():
     last, dot, suffix = res.partition('.')
     assert suffix == 'pypi.python.org'
     mirrors = []
-    for l in range(ord('a'), ord(last) + 1):
+    # the mirrors start with b.pypi.python.org
+    for l in range(ord('b'), ord(last) + 1):
         mirrors.append('{0:c}.{1}'.format(l, suffix))
     mirrors.extend(MIRRORS)
     return mirrors
@@ -87,13 +89,20 @@ def humanize_date_difference(now, otherdate=None, offset=None):
     return fmt.format(d=delta_d, h=delta_h, m=delta_m, s=delta_s)
 
 
-def gather_data(now, mirror_url=MIRROR_URL):
+def gather_data(now, mirror_url=MIRROR_URL, master_url=MASTER_URL):
     """ get the data we need put in dict """
-    results = []
+    # a.pypi.python.org is the master server
+    ml = 'a.pypi.python.org'
+    m_url = master_url.format(ml)
+    res = ping_mirror(m_url)
+    ping_results = [(ml, res)]
     for ml in get_mirrors():
         m_url = mirror_url.format(ml)
         res = ping_mirror(m_url)
+        ping_results.append((ml, res))
 
+    results = []
+    for ml, res in ping_results:
         if res:
             last_update = parse_date(res)
             how_old = humanize_date_difference(now, last_update)
