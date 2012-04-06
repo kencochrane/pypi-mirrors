@@ -7,4 +7,8 @@ I threw this together very quickly as a proof of concept feel free to fork, and 
 
 How it works
 ------------
-The ``pypi_mirrors.py`` script runs via a cron job and outputs a simple web page. That is all.  
+The ``pypi_mirrors.py`` script runs via a cron job and outputs a simple web page. That is all.
+
+Demo
+----
+http://pypimirrors-kencochrane.dotcloud.com
