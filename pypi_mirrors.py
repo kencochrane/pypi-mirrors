@@ -6,7 +6,7 @@ import urllib2
 
 # Add non-official mirrors here
 MIRRORS = [
-    # 'pypi.crate.io',
+     'pypi.crate.io',
 ]
 MIRROR_URL = "http://{0}/last-modified"
 
