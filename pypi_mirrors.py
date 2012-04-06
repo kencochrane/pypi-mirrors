@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-import requests
 import datetime
+import urllib2
 
 mirrors = ['b.pypi.python.org',
             'c.pypi.python.org',
@@ -28,10 +28,11 @@ Built with:
 
 
 def ping_mirror(mirror_url):
-    res = requests.get(mirror_url)
-    if res.ok:
-        return res.content.strip()
-    return None
+    try:
+        res = urllib2.urlopen(mirror_url)
+        return res.read().strip()
+    except Exception:
+        return None
 
 
 def parse_date(date_str):
