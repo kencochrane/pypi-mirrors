@@ -1,7 +1,9 @@
 #!/bin/sh
-
+echo "Install crontab"
 crontab ~/current/crontab
 
+echo "Make output directory"
 mkdir -p ~/output
 
+echo "Run script to get updated information"
 python ~/current/pypi_mirrors.py > ~/output/index.html
