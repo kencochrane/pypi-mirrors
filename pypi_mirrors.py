@@ -11,21 +11,6 @@ MIRRORS = [
 MIRROR_URL = "http://{0}/last-modified"
 MASTER_URL = "http://{0}/daytime"
 
-#TODO: replace with a template system and nice html/css
-page = """<html><head><title>PyPI Mirror Status</title></head><body>
-<h1>PyPI Mirror Status</h1>
-<p>Here is a list of the PyPI mirrors and the last time they were updated</p>
-
-{body}
-
-<hr>
-Page last updated at {date_now} <br />
-Built with:
-<a href='https://github.com/kencochrane/pypi-mirrors'>pypi-mirrors</a>
-</body>
-</html>
-"""
-
 
 def get_mirrors():
     # http://pypi.python.org/mirrors
@@ -125,12 +110,15 @@ def gather_data(mirror_url=MIRROR_URL, master_url=MASTER_URL):
 
 def generate_page(format='html'):
     now, data = gather_data()
-    body = "<table border='1' width='50%'>"
-    body += "<tr><th>Mirror</th><th>Last update</th><th>Age</th></tr>"
+    body = ""
     row = "<tr><td>{mirror}</td><td>{last_update}</td><td>{how_old}</td></tr>"
     for d in data:
         body += row.format(**d)
-    body += "</table>"
+    
+    with open('template.html', 'r') as f:
+        page = f.read()
+    f.close()
+    
     page_out = page.format(body=body, date_now=now)
     print page_out
 
