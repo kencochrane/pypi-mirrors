@@ -84,6 +84,26 @@ def humanize_date_difference(now, otherdate=None, offset=None, sign="ago"):
     return fmt.format(d=delta_d, h=delta_h, m=delta_m, s=delta_s, ago=sign)
 
 
+def get_mirror_status(now, last_update):
+    """ Get the status of the mirror """
+    how_old = abs(now - last_update)
+
+    if how_old < datetime.timedelta(minutes=5):
+        return '<span class="label label-success">Excellent</span>'
+    elif how_old < datetime.timedelta(minutes=15):
+        return '<span class="label label-success">Awesome</span>'
+    elif how_old < datetime.timedelta(hours=1):
+        return '<span class="label label-success">Great</span>'
+    elif how_old < datetime.timedelta(hours=6):
+        return '<span class="label label-info">Good</span>'
+    elif how_old < datetime.timedelta(hours=12):
+        return '<span class="label label-warning">OK</span>'
+    elif how_old < datetime.timedelta(days=1):
+        return '<span class="label label-warning">Getting stale</span>'
+    else:
+        return '<span class="label label-important">Out of Date</span>'
+
+
 def gather_data(mirror_url=MIRROR_URL, master_url=MASTER_URL):
     """ get the data we need put in dict """
     ping_results = []
@@ -104,16 +124,19 @@ def gather_data(mirror_url=MIRROR_URL, master_url=MASTER_URL):
         if res:
             last_update = parse_date(res)
             how_old = humanize_date_difference(now, last_update)
+            status = get_mirror_status(now, last_update)
             results.append({'mirror': ml,
                 'last_update': last_update,
                 'how_old':  how_old,
-                'response_time': res_time}
+                'response_time': res_time,
+                'status': status}
             )
         else:
             results.append({'mirror': ml,
                 'last_update': "Unavailable",
                 'how_old':  "Unavailable",
-                'response_time':  "Unavailable"}
+                'response_time':  "Unavailable",
+                'status': '<span class="label">Unavailable</span>'}
             )
     return now, results
 
@@ -121,7 +144,8 @@ def gather_data(mirror_url=MIRROR_URL, master_url=MASTER_URL):
 def generate_page(format='html'):
     now, data = gather_data()
     body = ""
-    row = "<tr><td>{mirror}</td><td>{last_update}</td><td>{how_old}</td><td>{response_time}</td></tr>"
+    row = "<tr><td>{mirror}</td><td>{last_update}</td>" \
+          "<td>{how_old}</td><td>{response_time}</td><td>{status}</td></tr>"
     for d in data:
         body += row.format(**d)
 
