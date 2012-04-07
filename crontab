@@ -1,2 +1,2 @@
 MAILTO=""
-*/15 * * * * /home/dotcloud/env/bin/python /home/dotcloud/current/pypi_mirrors.py > /home/dotcloud/output/index.html
+*/6 * * * * /home/dotcloud/env/bin/python /home/dotcloud/current/pypi_mirrors.py > /home/dotcloud/output/index.html

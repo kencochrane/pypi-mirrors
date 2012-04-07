@@ -144,7 +144,8 @@ def gather_data(mirror_url=MIRROR_URL, master_url=MASTER_URL):
 def generate_page(format='html'):
     now, data = gather_data()
     body = ""
-    row = "<tr><td>{mirror}</td><td>{last_update}</td>" \
+    row = "<tr><td><a target='_new' href='http://{mirror}'>{mirror}</a></td>" \
+          "<td>{last_update}</td>" \
           "<td>{how_old}</td><td>{response_time}</td><td>{status}</td></tr>"
     for d in data:
         body += row.format(**d)
