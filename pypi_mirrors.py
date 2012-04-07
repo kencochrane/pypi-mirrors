@@ -2,7 +2,11 @@
 import datetime
 import socket
 import urllib2
+import os
 
+ROOT = os.path.abspath(os.path.dirname(__file__))
+# Used to absolute-ify relative paths
+path = lambda x: os.path.abspath(os.path.join(ROOT, x))
 
 # Add non-official mirrors here
 MIRRORS = [
@@ -114,11 +118,11 @@ def generate_page(format='html'):
     row = "<tr><td>{mirror}</td><td>{last_update}</td><td>{how_old}</td></tr>"
     for d in data:
         body += row.format(**d)
-    
-    with open('template.html', 'r') as f:
+
+    with open(path('template.html'), 'r') as f:
         page = f.read()
     f.close()
-    
+
     page_out = page.format(body=body, date_now=now)
     print page_out
 
