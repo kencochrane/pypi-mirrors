@@ -3,6 +3,7 @@ import datetime
 import socket
 import urllib2
 import os
+import time
 
 ROOT = os.path.abspath(os.path.dirname(__file__))
 # Used to absolute-ify relative paths
@@ -31,10 +32,13 @@ def get_mirrors():
 
 def ping_mirror(mirror_url):
     try:
+        start = time.time()
         res = urllib2.urlopen(mirror_url)
-        return res.read().strip()
+        stop = time.time()
+        response_time = round((stop - start) * 1000, 2)
+        return res.read().strip(), response_time
     except Exception:
-        return None
+        return None, None
 
 
 def parse_date(date_str):
@@ -85,29 +89,31 @@ def gather_data(mirror_url=MIRROR_URL, master_url=MASTER_URL):
     ping_results = []
     for ml in get_mirrors():
         m_url = mirror_url.format(ml)
-        res = ping_mirror(m_url)
-        ping_results.append((ml, res))
+        res, res_time = ping_mirror(m_url)
+        ping_results.append((ml, res, res_time))
 
     # a.pypi.python.org is the master server
     ml = 'a.pypi.python.org'
     m_url = master_url.format(ml)
-    res = ping_mirror(m_url)
-    ping_results.insert(0, (ml, res))
+    res, res_time = ping_mirror(m_url)
+    ping_results.insert(0, (ml, res, res_time))
 
     now = datetime.datetime.utcnow()
     results = []
-    for ml, res in ping_results:
+    for ml, res, res_time in ping_results:
         if res:
             last_update = parse_date(res)
             how_old = humanize_date_difference(now, last_update)
             results.append({'mirror': ml,
                 'last_update': last_update,
-                'how_old':  how_old}
+                'how_old':  how_old,
+                'response_time': res_time}
             )
         else:
             results.append({'mirror': ml,
                 'last_update': "Unavailable",
-                'how_old':  "Unavailable"}
+                'how_old':  "Unavailable",
+                'response_time':  "Unavailable"}
             )
     return now, results
 
@@ -115,7 +121,7 @@ def gather_data(mirror_url=MIRROR_URL, master_url=MASTER_URL):
 def generate_page(format='html'):
     now, data = gather_data()
     body = ""
-    row = "<tr><td>{mirror}</td><td>{last_update}</td><td>{how_old}</td></tr>"
+    row = "<tr><td>{mirror}</td><td>{last_update}</td><td>{how_old}</td><td>{response_time}</td></tr>"
     for d in data:
         body += row.format(**d)
 
