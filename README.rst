@@ -26,3 +26,4 @@ TODO:
 - make pypi-mirrors a reusable lib that can be used by other projects
 - Create a setup.py and add to PyPI
 - Add notifications to mirror maintainers if their mirror is out of sync.
+- List the physical location of the mirrors
