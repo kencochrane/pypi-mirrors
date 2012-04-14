@@ -1,1 +1,1 @@
-yolk
+pypi-mirrors==0.0.1
