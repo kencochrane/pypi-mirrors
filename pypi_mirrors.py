@@ -10,7 +10,7 @@ ROOT = os.path.abspath(os.path.dirname(__file__))
 path = lambda x: os.path.abspath(os.path.join(ROOT, x))
 
 # Add non-official mirrors here
-UNOFFICAL_MIRRORS = [
+UNOFFICIAL_MIRRORS = [
      'pypi.crate.io',
 ]
 
@@ -28,7 +28,7 @@ def find_status(status):
     return STATUSES.get(status, 'Unavailable')
 
 def generate_page(format='html'):
-    results = mirror_statuses(unoffical_mirrors=UNOFFICAL_MIRRORS)
+    results = mirror_statuses(unofficial_mirrors=UNOFFICIAL_MIRRORS)
     if results:
         now = results[0].get('time_now', None)
     body = ""
