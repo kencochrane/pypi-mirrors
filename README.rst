@@ -14,6 +14,10 @@ In order to get the IP address geolocation lookup to work correctly you need to 
 from http://ipinfodb.com/register.php and then set an environment variables called ``PYPI_MIRRORS_API_KEY`` with the key they
 give you so you can access the API. If you don't have the env variable set, you will not have access to the geo location information.
 
+For installing the API Key on dotCloud you need to run the following command.
+
+   $ dotcloud var set myapp PYPI_MIRRORS_API_KEY=<api key>
+
 
 How it works
 ------------

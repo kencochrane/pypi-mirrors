@@ -60,7 +60,7 @@ def ping_ip2loc(ip):
     PYPI_MIRRORS_API_KEY
     
     """
-    api_key = os.getenv('PYPI_MIRRORS_API_KEY')
+    api_key = CONFIG.get('ip_api_key')
     if not api_key:
         return None
     return get_city(api_key, ip)
