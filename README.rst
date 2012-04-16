@@ -33,7 +33,6 @@ Pick one of the things on the TODO list and implement it and send a pull request
 
 TODO:
 -----
-- Change to a micro framework like flask (not needed until we add more features)
 - Create a setup.py and add to PyPI
 - Add notifications to mirror maintainers if their mirror is out of sync.
 - send out twitter notifications when a mirror is out of date.
