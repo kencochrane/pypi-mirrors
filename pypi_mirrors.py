@@ -119,6 +119,13 @@ def generate_page(results, time_now, format='html'):
 
     print template.render(date_now=time_now, data=results)
 
+def get_total_seconds(delta):
+    """ need this since timedelta.total_seconds() 
+    isn't available in python 2.6.x"""
+    if not delta:
+        return delta.seconds + (delta.days * 24 * 3600)
+    return 0
+
 def process_results(results):
     """ process the results and gather data """
 
@@ -127,7 +134,7 @@ def process_results(results):
     for d in results:
         mirror = d.get('mirror')
         resp_time = d.get('response_time')
-        age = int(round(d.get('time_diff').total_seconds())) # need to round
+        age = get_total_seconds(d.get('time_diff'))
         #print("resp: {0} ; age: {1}".format(resp_time, age))
         conn.rpush(cache_key('RESPTIME', mirror), resp_time )
         conn.rpush(cache_key('AGE', mirror), age)
