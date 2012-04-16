@@ -4,3 +4,4 @@ hiredis
 Jinja2
 requests
 lxml
+flask
