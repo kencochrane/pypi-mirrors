@@ -5,6 +5,8 @@ import urllib2
 import os
 import time
 import json
+import requests
+import lxml.html
 
 try:
     import cPickle as pickle
@@ -52,6 +54,12 @@ def get_connection():
                           password=CONFIG.get('password'))
 
 
+def find_number_of_packages(mirror):
+    """ Find the number of packages in a mirror """
+    html = lxml.html.fromstring(requests.get("http://{0}/simple/".format(mirror)).content)
+    return len(html.xpath("//a"))
+
+
 def ping_ip2loc(ip):
     """ get the location info for the ip
     you need to register for an API key here. http://ipinfodb.com/register.php
@@ -88,10 +96,10 @@ def location_name(location):
     """ build out the location name given the location data """
     if not location:
         return "N/A"
-    city = location.get('City', None)
-    region = location.get('RegionName', None)
-    country = location.get('CountryName', None)
-    country_code = location.get('CountryCode', None) 
+    city = location.get('cityName', None)
+    region = location.get('regionName', None)
+    country = location.get('countryName', None)
+    country_code = location.get('countryCode', None)
 
     # If we have everything return everything but only use country_code
     if city and region and country_code:
@@ -141,6 +149,7 @@ def process_results(results):
         resp_list = conn.lrange(cache_key('RESPTIME', mirror), -60, -1)
         age_list = conn.lrange(cache_key('AGE', mirror), -60, -1)
         location = get_location_for_mirror(mirror)
+        d['num_packages'] = find_number_of_packages(mirror)
         d['location'] = location_name(location)
         d['resp_list'] = ",".join(resp_list)
         d['age_list'] = ",".join(age_list)

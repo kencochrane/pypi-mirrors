@@ -2,3 +2,5 @@ pypi-mirrors==0.0.2
 redis
 hiredis
 Jinja2
+requests
+lxml

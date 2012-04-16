@@ -39,11 +39,12 @@
         </div>
         
         <table class="table table-bordered table-striped">
-            <thead><tr><th>Mirror</th><th>Location</th><th>Last update</th><th>Age</th><th>Response Time (ms)*</th><th>Status</th></tr></thead>
+            <thead><tr><th>Mirror</th><th>Location</th><th># of Packages</th><th>Last update</th><th>Age</th><th>Response Time (ms)*</th><th>Status</th></tr></thead>
             <tbody>
             {% for item in data %}
                 <tr><td><a target='_new' href='http://{{item.mirror}}'>{{item.mirror}}</a></td>
                 <td>{{item.location}}</td>
+                <td>{{item.num_packages}}</td>
                 <td>{{item.last_update}}</td>
                 <td>{{item.time_diff_human}} <span class='sparklines' values='{{item.age_list}}'></span></td>
                 <td>{{item.response_time}}  <span class='sparklines' values='{{item.resp_list}}'></span></td>
@@ -51,7 +52,7 @@
              {% endfor %}
 
            </tbody>
-           <tfoot><tr><td colspan='6'>* Response time from Virginia, US</td></tr></tfoot>
+           <tfoot><tr><td colspan='7'>* Response time from Virginia, US</td></tr></tfoot>
         </table>
     </div>
     </div>
