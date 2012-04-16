@@ -101,6 +101,12 @@ def location_name(location):
     country = location.get('countryName', None)
     country_code = location.get('countryCode', None)
 
+    # clear out the -'s
+    if city and city == '-':
+        city = None
+    if region and region == '-':
+        region = None
+
     # If we have everything return everything but only use country_code
     if city and region and country_code:
         return "{0}, {1} {2}".format(city, region, country_code)
