@@ -48,7 +48,16 @@
                 <td>{{item.last_update}}</td>
                 <td>{{item.time_diff_human}} <span class='sparklines' values='{{item.age_list}}'></span></td>
                 <td>{{item.response_time}}  <span class='sparklines' values='{{item.resp_list}}'></span></td>
-                <td>{{item.status}}</td></tr>
+                <td>{% if item.status == 'Green' %}
+                            <span class="label label-success">Fresh</span>
+                    {% elif item.status == "Yellow" %}
+                            <span class="label label-warning">Aging</span>
+                    {% elif item.status == "Red" %}
+                            <span class="label label-important">Old</span>
+                    {% else %}
+                            <span class="label">N/A</span>
+                    {% endif %}
+                </td></tr>
              {% endfor %}
 
            </tbody>

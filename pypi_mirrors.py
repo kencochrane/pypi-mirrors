@@ -31,15 +31,6 @@ UNOFFICIAL_MIRRORS = [
      'pypi.crate.io',
 ]
 
-STATUSES = {'Green':'<span class="label label-success">Fresh</span>',
-            'Yellow':'<span class="label label-warning">Aging</span>',
-            'Red':'<span class="label label-important">Old</span>'}
-
-
-def find_status(status):
-    """ Find the status give the status code"""
-    return STATUSES.get(status, 'Unavailable')
-
 
 def cache_key(token, value):
     """ build a cache key """
@@ -159,7 +150,6 @@ def process_results(results):
         d['location'] = location_name(location)
         d['resp_list'] = ",".join(resp_list)
         d['age_list'] = ",".join(age_list)
-        d['status'] = find_status(d.get('status', None))
         new_results.append(d)
     return new_results
 
