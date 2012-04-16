@@ -30,7 +30,7 @@ UNOFFICIAL_MIRRORS = [
 ]
 
 STATUSES = {'Green':'<span class="label label-success">Fresh</span>',
-            'Yellow':'<span class="label label-warning">Oldish</span>',
+            'Yellow':'<span class="label label-warning">Aging</span>',
             'Red':'<span class="label label-important">Old</span>'}
 
 
