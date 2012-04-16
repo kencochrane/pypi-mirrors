@@ -122,7 +122,7 @@ def generate_page(results, time_now, format='html'):
 def get_total_seconds(delta):
     """ need this since timedelta.total_seconds() 
     isn't available in python 2.6.x"""
-    if not delta:
+    if delta:
         return delta.seconds + (delta.days * 24 * 3600)
     return 0
 
