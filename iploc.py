@@ -3,9 +3,8 @@ import json, urllib, urllib2
 
 def get_city(apikey, ip):
     """ get city location for an ip """
-    base_url = "http://api.ipinfodb.com/v3/ip_query.php"
-    variables = {"output":"json",
-                "timezone":'false',
+    base_url = "http://api.ipinfodb.com/v3/ip-city/"
+    variables = {"format":"json",
                 "key":apikey,
                 "ip":ip,}
 
