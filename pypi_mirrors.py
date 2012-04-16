@@ -6,22 +6,20 @@ import os
 import time
 import json
 
-import redis
-
 try:
     import cPickle as pickle
 except ImportError:
     import pickle
 
+import redis
 from pypimirrors import mirror_statuses
+from jinja2 import Environment, PackageLoader
+
 from config import load_config
 from iploc import get_city
 
-from jinja2 import Environment, PackageLoader
 env = Environment(loader=PackageLoader('pypi_mirrors', 'templates'))
-
 CONFIG = load_config()
-
 ROOT = os.path.abspath(os.path.dirname(__file__))
 # Used to absolute-ify relative paths
 path = lambda x: os.path.abspath(os.path.join(ROOT, x))
@@ -35,13 +33,16 @@ STATUSES = {'Green':'<span class="label label-success">Fresh</span>',
             'Yellow':'<span class="label label-warning">Oldish</span>',
             'Red':'<span class="label label-important">Old</span>'}
 
+
 def find_status(status):
+    """ Find the status give the status code"""
     return STATUSES.get(status, 'Unavailable')
 
 
 def cache_key(token, value):
-    """ """
+    """ build a cache key """
     return "{0}_{1}".format(token, value)
+
 
 def get_connection():
     """ Get the connection to Redis"""
@@ -64,6 +65,7 @@ def ping_ip2loc(ip):
         return None
     return get_city(api_key, ip)
 
+
 def get_location_for_mirror(mirror):
     """ get the location for the mirror """
     conn = get_connection()
@@ -82,27 +84,8 @@ def get_location_for_mirror(mirror):
     return None
 
 
-def generate_page(results, time_now, format='html'):
-    body = ""
-    row = "<tr><td><a target='_new' href='http://{mirror}'>{mirror}</a></td>" \
-          "<td>{last_update}</td>" \
-          "<td>{time_diff_human} <span class='sparklines' values='{age_list}'>" \
-          "</span></td><td>{response_time} <span class='sparklines' values='{resp_list}'>" \
-          "</span></td><td>{status}</td></tr>"
-
-    for d in results:
-        body += row.format(**d)
-
-    # with open(path('template.html'), 'r') as f:
-    #     page = f.read()
-    # f.close()
-    
-    template = env.get_template('index.html')
-
-    #page_out = page.format()
-    print template.render(date_now=time_now, data=results)
-
 def location_name(location):
+    """ build out the location name given the location data """
     if not location:
         return "N/A"
     city = location.get('City', None)
@@ -129,6 +112,12 @@ def location_name(location):
     if country:
         name += country
     return name
+
+def generate_page(results, time_now, format='html'):
+    """ generate the page from the resutls """
+    template = env.get_template('index.html')
+
+    print template.render(date_now=time_now, data=results)
 
 def process_results(results):
     """ process the results and gather data """

@@ -5,6 +5,16 @@ Very simple tool that pings the PyPI mirrors and tells us when they were updated
 
 I threw this together very quickly as a proof of concept feel free to fork, and send pull requests.
 
+Config
+------
+It requires redis in order to cache some of the data. For local development it is assuming it to be running
+at localhost:6379 db:1 and no password. see ``config.py`` for more info.
+
+In order to get the IP address geolocation lookup to work correctly you need to sign up for an account
+from http://ipinfodb.com/register.php and then set an environment variables called ``PYPI_MIRRORS_API_KEY`` with the key they
+give you so you can access the API. If you don't have the env variable set, you will not have access to the geo location information.
+
+
 How it works
 ------------
 The ``pypi_mirrors.py`` script runs via a cron job and outputs a simple web page. That is all.
@@ -19,11 +29,7 @@ Pick one of the things on the TODO list and implement it and send a pull request
 
 TODO:
 -----
-- Track results over time, so we can see averages and stability of each mirror (requires a datastore)
-- Once we track history add nice pretty charts
-- Change to a micro framework like flask and using jinja2 for the templates (not needed until we add more features)
-- seperate the web code from the mirror checking code
-- make pypi-mirrors a reusable lib that can be used by other projects
+- Change to a micro framework like flask (not needed until we add more features)
 - Create a setup.py and add to PyPI
 - Add notifications to mirror maintainers if their mirror is out of sync.
-- List the physical location of the mirrors
+- send out twitter notifications when a mirror is out of date.
