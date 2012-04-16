@@ -47,7 +47,7 @@ def cache_key(token, value):
 def get_connection():
     """ Get the connection to Redis"""
     return redis.StrictRedis(host=CONFIG.get('host'),
-                          port=CONFIG.get('port'),
+                          port=int(CONFIG.get('port')),
                           db=CONFIG.get('db'),
                           password=CONFIG.get('password'))
 
