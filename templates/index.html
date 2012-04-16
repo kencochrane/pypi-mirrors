@@ -39,7 +39,7 @@
         </div>
         
         <table class="table table-bordered table-striped">
-            <thead><tr><th>Mirror</th><th>Location</th><th>Last update</th><th>Age</th><th>Response Time (ms)</th><th>Status</th></tr></thead>
+            <thead><tr><th>Mirror</th><th>Location</th><th>Last update</th><th>Age</th><th>Response Time (ms)*</th><th>Status</th></tr></thead>
             <tbody>
             {% for item in data %}
                 <tr><td><a target='_new' href='http://{{item.mirror}}'>{{item.mirror}}</a></td>
@@ -51,6 +51,7 @@
              {% endfor %}
 
            </tbody>
+           <tfoot><tr><td colspan='6'>* Response time from Virginia, US</td></tr></tfoot>
         </table>
     </div>
     </div>
@@ -72,6 +73,7 @@
     <div class="span12">
           <hr>
           Page last updated at {{date_now}} <br />
+          Built by: <a target='_new' href='http://twitter.com/kencochrane'>@KenCochrane</a><br />
           Built with:
           <a target='_new' href='https://github.com/kencochrane/pypi-mirrors'>pypi-mirrors</a> and <a target='_new' href='http://twitter.github.com/bootstrap/'>Bootstrap</a><br/> <br/>
           <a target='_new' href='https://www.dotCloud.com'><img src='static/img/powered-by-dotcloud.png' border='0'/></a>
