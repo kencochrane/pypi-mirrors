@@ -25,7 +25,7 @@ The ``pypi_mirrors.py`` script runs via a cron job and outputs a simple web page
 
 Demo
 ----
-http://pypimirrors-kencochrane.dotcloud.com
+http://www.pypi-mirrors.org
 
 How to help
 -----------
