@@ -1,4 +1,4 @@
-pypi-mirrors==0.0.2
+pypi-mirrors==0.0.3
 redis
 hiredis
 Jinja2
