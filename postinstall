@@ -12,5 +12,6 @@ echo "Run script to get updated information"
 ;;
 *)
 echo "We are not on mirror-0; skipping specific management commands..."
+exit 0
 ;;
 esac
