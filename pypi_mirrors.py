@@ -6,11 +6,7 @@ from utils import (cache_key, location_name, get_total_seconds,
                    get_connection, store_page_data, find_number_of_packages,
                    get_location_for_mirror)
 
-# Add non-official mirrors here
-UNOFFICIAL_MIRRORS = [
-     'pypi.crate.io',
-]
-
+from config import UNOFFICIAL_MIRRORS
 
 def process_results(results):
     """ process the results and gather data """

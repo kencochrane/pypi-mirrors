@@ -1,7 +1,7 @@
-pypi-mirrors==0.0.3
+pypi-mirrors==0.0.5
 redis
 hiredis
-Jinja2
 requests
 lxml
 flask
+tweepy

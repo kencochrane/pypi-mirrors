@@ -1,9 +1,16 @@
 #!/bin/sh
+echo "HOSTNAME=$(cat /etc/hostname)"
+case "$(cat /etc/hostname)" in
+*-mirror-0)
+echo "We are on mirror-0; executing specific management commands..."
+
 echo "Install crontab"
 crontab ~/current/crontab
 
-echo "Make output directory"
-mkdir -p ~/output
-
 echo "Run script to get updated information"
-/home/dotcloud/env/bin/python /home/dotcloud/current/pypi_mirrors.py > /home/dotcloud/output/index.html
+/home/dotcloud/env/bin/python /home/dotcloud/current/pypi_mirrors.py >> /var/log/supervisor/cron
+;;
+*)
+echo "We are not on mirror-0; skipping specific management commands..."
+;;
+esac

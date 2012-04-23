@@ -1,2 +1,4 @@
 *.DS_Store
 *.pyc
+environment.json
+environment.txt

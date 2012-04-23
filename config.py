@@ -1,6 +1,13 @@
 import os
 import json
 
+# Add non-official mirrors here
+UNOFFICIAL_MIRRORS = [
+     'pypi.crate.io',
+]
+
+EMAIL_OVERRIDE = None # None or "blah@example.com"
+
 def load_config():
     # if at dotcloud load the dotcloud settings
     dotcloud_config = '/home/dotcloud/environment.json'
@@ -10,14 +17,41 @@ def load_config():
                   'port': env['DOTCLOUD_CACHE_REDIS_PORT'],
                   'password': env['DOTCLOUD_CACHE_REDIS_PASSWORD'],
                   'db': 1,
-                  'ip_api_key': env.get('PYPI_MIRRORS_API_KEY', None),
+                  'ip_api_key': env.get('IPLOC_API_KEY', None),
+                  'twitter_consumer_key' : env.get('TWITTER_CONSUMER_KEY', None),
+                  'twitter_consumer_secret' : env.get('TWITTER_CONSUMER_SECRET', None),
+                  'twitter_access_key' : env.get('TWITTER_ACCESS_KEY', None),
+                  'twitter_access_secret' : env.get('TWITTER_ACCESS_SECRET', None),
+                  'email_host' : env.get('EMAIL_HOST', None),
+                  'email_user' : env.get('EMAIL_USER', None),
+                  'email_password' : env.get('EMAIL_PASSWORD', None),
+                  'email_from' : env.get('EMAIL_FROM', None),
+                  'email_to' : env.get('EMAIL_TO', None),
+                  'email_bcc' : env.get('EMAIL_BCC', None),
+                  'email_to_admin': env.get('EMAIL_TO_ADMIN', None),
                   }
     else:
         # local config
-        ip_api_key = os.getenv('PYPI_MIRRORS_API_KEY')
-        return { 'host': 'localhost',
-                 'port': 6379,
-                 'password': None,
-                 'db': 0,
-                 'ip_api_key':ip_api_key}
-    
+        dotcloud_config = '/tmp/environment.json'
+        if os.path.exists(dotcloud_config):
+            env = json.load(open(dotcloud_config))
+            return { 'host': 'localhost',
+                     'port': 6379,
+                     'password': None,
+                     'db': 0,
+                     'ip_api_key': env.get('IPLOC_API_KEY', None),
+                     'twitter_consumer_key' : env.get('TWITTER_CONSUMER_KEY', None),
+                     'twitter_consumer_secret' : env.get('TWITTER_CONSUMER_SECRET', None),
+                     'twitter_access_key' : env.get('TWITTER_ACCESS_KEY', None),
+                     'twitter_access_secret' : env.get('TWITTER_ACCESS_SECRET', None),
+                     'email_host' : env.get('EMAIL_HOST', None),
+                     'email_user' : env.get('EMAIL_USER', None),
+                     'email_password' : env.get('EMAIL_PASSWORD', None),
+                     'email_from' : env.get('EMAIL_FROM', None),
+                     'email_to' : env.get('EMAIL_TO', None),
+                     'email_bcc' : env.get('EMAIL_BCC', None),
+                     'email_to_admin': env.get('EMAIL_TO_ADMIN', None),
+                     }
+        else:
+            print("can't find a local envirornment file here '/tmp/environment.json' ")
+            return None #TODO throw exception?
