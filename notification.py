@@ -79,6 +79,7 @@ def send_status_email(message):
 def send_email(email_body, email_to, email_from):
     """ Send an email using the configuration provided """
     email_host = CONFIG.get('email_host')
+    email_port = CONFIG.get('email_port')
     email_user = CONFIG.get('email_user')
     email_password = CONFIG.get('email_password')
     email_bcc = CONFIG.get('email_bcc')
@@ -90,7 +91,7 @@ def send_email(email_body, email_to, email_from):
         email = email_to
 
     print("email to {0} , bcc: {1}; from {2}".format(email, email_bcc, email_from))
-    smtp = smtplib.SMTP(email_host)
+    smtp = smtplib.SMTP(email_host, email_port)
     smtp.starttls()
     smtp.login(email_user, email_password)
     smtp.sendmail(email_from, [email, email_bcc], email_body)
