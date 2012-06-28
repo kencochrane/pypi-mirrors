@@ -19,14 +19,14 @@ def daily_out_of_date_mirror_check():
         email_message = ""
         for res in results:
             email_message += "{0} was last updated {1}\n".format(
-                                                res.mirror,
-                                                res.time_diff_human)
+                                                res.get('mirror'),
+                                                res.get('time_diff_human'))
 
             print("{0} is out of date. {1}".format(
-                    res.mirror, res.time_diff_human))
+                    res.get('mirror'), res.get('time_diff_human')))
 
             # one tweet for each out of date mirror
-            __tweet_outofdate(res.mirror, res.time_diff_human)
+            __tweet_outofdate(res.get('mirror'), res.get('time_diff_human'))
 
         # one email for all out of date mirrors
         send_warning_email(email_message)
