@@ -55,8 +55,12 @@
                 <td>{{item.location}}</td>
                 <td>{{item.num_packages}}</td>
                 <td>{{item.last_update}}</td>
-                <td>{{item.time_diff_human}} <span class='sparklines' values='{{item.age_list}}'></span></td>
-                <td>{{item.response_time}}  <span class='sparklines' values='{{item.resp_list}}'></span></td>
+                <td>{{item.time_diff_human}} 
+                    {% if item.age_list %}<span class='sparklines' values='{{item.age_list}}'></span>{% endif %}
+                </td>
+                <td>{{item.response_time}} 
+                    {% if item.resp_list %} <span class='sparklines' values='{{item.resp_list}}'></span> {% endif %}
+                </td>
                 <td>{% if item.status == 'Green' %}
                             <span class="label label-success">Fresh</span>
                     {% elif item.status == "Yellow" %}
