@@ -4,6 +4,7 @@ import json
 # Add non-official mirrors here
 UNOFFICIAL_MIRRORS = [
      'pypi.crate.io',
+     ‘pypi.douban.com',
 ]
 
 EMAIL_OVERRIDE = None # None or "blah@example.com"
