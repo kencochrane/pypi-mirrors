@@ -20,58 +20,66 @@ def get_connection():
                           db=CONFIG.get('db'),
                           password=CONFIG.get('password'))
 
-
 def find_number_of_packages(mirror):
-  """ Find the number of packages in a mirror """
-  html = lxml.html.fromstring(requests.get("http://{0}/simple/".format(mirror)).content)
-  return len(html.xpath("//a"))
+    """ Find the number of packages in a mirror """
+    html = lxml.html.fromstring(requests.get("http://{0}/simple/".format(mirror)).content)
+    return len(html.xpath("//a"))
 
 def ping_ip2loc(ip):
-  """ get the location info for the ip
-  you need to register for an API key here. http://ipinfodb.com/register.php
+    """ get the location info for the ip
+    you need to register for an API key here. http://ipinfodb.com/register.php
 
-  and set it as an envirornment variable called
-  PYPI_MIRRORS_API_KEY
+    and set it as an envirornment variable called
+    PYPI_MIRRORS_API_KEY
 
-  """
-  api_key = CONFIG.get('ip_api_key')
-  if not api_key:
-      return None
-  return get_city(api_key, ip)
-
+    """
+    api_key = CONFIG.get('ip_api_key')
+    if not api_key:
+        return None
+    return get_city(api_key, ip)
 
 def get_location_for_mirror(mirror):
-  """ get the location for the mirror """
-  conn = get_connection()
-  loc_key = cache_key('IPLOC', mirror)
-  value = conn.get(loc_key)
-  if value:
-      return pickle.loads(value)
+    """ get the location for the mirror """
+    conn = get_connection()
+    loc_key = cache_key('IPLOC', mirror)
+    value = conn.get(loc_key)
+    if value:
+        return pickle.loads(value)
 
-  ip = socket.gethostbyname(mirror)
-  location = ping_ip2loc(ip)
-  if location:
-      conn.setex(loc_key, 86400, pickle.dumps(location)) # 1 day cache
-      return location
-  # if we get here, no good, return None
-  return None
-
+    ip = socket.gethostbyname(mirror)
+    location = ping_ip2loc(ip)
+    if location:
+        conn.setex(loc_key, 86400, pickle.dumps(location)) # 1 day cache
+        return location
+    # if we get here, no good, return None
+    return None
 
 def store_page_data(data, time_now):
-  """ Store the data in the cache for later use."""
-  conn = get_connection()
-  context = {'data': data, 'date_now': time_now}
-  conn.set('PAGE_DATA', pickle.dumps(context))
-
+    """ Store the data in the cache for later use."""
+    conn = get_connection()
+    context = {'data': data, 'date_now': time_now}
+    conn.set('PAGE_DATA', pickle.dumps(context))
 
 def get_page_data():
-  """ Get the page data from the cache """
-  conn = get_connection()
-  data = conn.get('PAGE_DATA')
-  if data:
+    """ Get the page data from the cache """
+    conn = get_connection()
+    data = conn.get('PAGE_DATA')
+    if data:
       return pickle.loads(data)
-  return None
+    return {}
 
+def store_json_data(data):
+    """ Store the data in the cache for later use."""
+    conn = get_connection()
+    conn.set('JSON_DATA', data)
+
+def get_json_data():
+    """ Get the json data from the cache """
+    conn = get_connection()
+    data = conn.get('JSON_DATA')
+    if not data:
+        return {}
+    return data
 
 def get_total_seconds(delta):
     """ need this since timedelta.total_seconds() 

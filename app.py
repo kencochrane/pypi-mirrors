@@ -1,5 +1,5 @@
-from flask import Flask, render_template
-from utils import get_page_data
+from flask import Flask, render_template, Response
+from utils import get_page_data, get_json_data
 
 app = Flask(__name__)
 
@@ -7,6 +7,10 @@ app = Flask(__name__)
 def index():
     context = get_page_data()
     return render_template('index.html', **context)
+
+@app.route('/data.json')
+def json_data():
+    return Response(get_json_data(),mimetype='application/json')
 
 if __name__ == '__main__':
     params = {"debug": True,
