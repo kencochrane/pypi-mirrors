@@ -1,12 +1,12 @@
 #!/usr/bin/env python
-
+import json
 from pypimirrors import mirror_statuses
 
 from utils import (cache_key, location_name, get_total_seconds, 
                    get_connection, store_page_data, find_number_of_packages,
-                   get_location_for_mirror)
+                   get_location_for_mirror, store_json_data)
 
-from config import UNOFFICIAL_MIRRORS
+from config import UNOFFICIAL_MIRRORS, IGNORE_MIRRORS
 
 def process_results(results):
     """ process the results and gather data """
@@ -15,6 +15,9 @@ def process_results(results):
     new_results = []
     for d in results:
         mirror = d.get('mirror')
+        if mirror in IGNORE_MIRRORS:
+            # skip mirrors we want to ignore.
+            continue
         status = d.get('status')
         location = get_location_for_mirror(mirror)
         d['location'] = location_name(location)
@@ -31,6 +34,16 @@ def process_results(results):
         new_results.append(d)
     return new_results
 
+def json_results(data):
+    results = {}
+    for mirror in data:
+        results[mirror.get('mirror')] = {
+            'status': mirror.get('status', 'n/a'),
+            'location': mirror.get('location', 'n/a'),
+            'num_packages': mirror.get('num_packages', 'n/a'),
+            'last_updated': mirror.get('time_diff_human', 'n/a'),
+        }
+    return json.dumps(results)
 
 def run():
     """ run everything """
@@ -38,7 +51,9 @@ def run():
     if results:
         time_now = results[0].get('time_now', None)
     data = process_results(results)
+    json_data = json_results(data)
 
+    store_json_data(json_data)
     store_page_data(data, time_now)
 
 if __name__ == '__main__':

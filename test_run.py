@@ -5,7 +5,7 @@ from pypimirrors import mirror_statuses
 
 from utils import (location_name, get_total_seconds, find_number_of_packages)
 
-from config import UNOFFICIAL_MIRRORS
+from config import UNOFFICIAL_MIRRORS, IGNORE_MIRRORS
 
 def process_results(results):
     """ process the results and gather data """
@@ -13,6 +13,9 @@ def process_results(results):
     new_results = []
     for d in results:
         mirror = d.get('mirror')
+        if mirror in IGNORE_MIRRORS:
+            # skip mirrors we want to ignore.
+            continue
         status = d.get('status')
         d['location'] = "n/a"
         if  status != 'Unavailable':
@@ -34,7 +37,7 @@ def run():
         time_now = results[0].get('time_now', None)
     data = process_results(results)
 
-    env = Environment(loader= FileSystemLoader('templates'))
+    env = Environment(loader=FileSystemLoader('templates'))
     template = env.get_template('index.html')
     context = {'data': data, 'date_now': time_now}
     print template.render(**context)
