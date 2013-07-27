@@ -74,6 +74,20 @@ How to help
 -----------
 Pick one of the things on the TODO list and implement it and send a pull request. 
 
+Running locally
+---------------
+Make sure redis is running
+
+1. Collecting Data::
+    
+    $ python pypi_mirrors.py
+
+2. Running web server::
+    
+    $ python app.py
+    # connect to http://localhost:5000 in browser
+
+
 TODO:
 -----
 - Create a setup.py and add to PyPI
