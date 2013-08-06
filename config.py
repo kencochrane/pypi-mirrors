@@ -5,6 +5,7 @@ import json
 UNOFFICIAL_MIRRORS = [
      'pypi.crate.io',
      'pypi.douban.com',
+     'pypi.hustunique.com',
 ]
 
 # If there is a mirror we want to ignore
