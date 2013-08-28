@@ -6,12 +6,14 @@ UNOFFICIAL_MIRRORS = [
      'pypi.crate.io',
      'pypi.douban.com',
      'pypi.hustunique.com',
+     'pypi.gocept.com',
 ]
 
 # If there is a mirror we want to ignore
 IGNORE_MIRRORS = [
     'b.pypi.python.org',
     'd.pypi.python.org',
+    'f.pypi.python.org',
 ]
 
 EMAIL_OVERRIDE = None # None or "blah@example.com"
