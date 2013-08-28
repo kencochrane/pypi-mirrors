@@ -1,3 +1,4 @@
 MAILTO=""
 */6 * * * * /home/dotcloud/env/bin/python /home/dotcloud/current/pypi_mirrors.py >> /var/log/supervisor/cron.log
 24 12 * * * /home/dotcloud/env/bin/python /home/dotcloud/current/daily.py >> /var/log/supervisor/cron-daily.log
+5   * * * * killall -q --older-than 1h '/home/dotcloud/env/bin/python'
