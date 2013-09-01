@@ -1,6 +1,12 @@
 import os
 import json
 
+# offical mirrors, no longer using auto-discovery since it is going away
+OFFICAL_MIRRORS = [
+    'c.pypi.python.org',
+    'e.pypi.python.org',
+]
+
 # Add non-official mirrors here
 UNOFFICIAL_MIRRORS = [
      'pypi.crate.io',

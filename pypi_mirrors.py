@@ -6,7 +6,7 @@ from utils import (cache_key, location_name, get_total_seconds,
                    get_connection, store_page_data, find_number_of_packages,
                    get_location_for_mirror, store_json_data)
 
-from config import UNOFFICIAL_MIRRORS, IGNORE_MIRRORS
+from config import OFFICAL_MIRRORS, UNOFFICIAL_MIRRORS, IGNORE_MIRRORS
 
 def process_results(results):
     """ process the results and gather data """
@@ -47,7 +47,9 @@ def json_results(data):
 
 def run():
     """ run everything """
-    results = mirror_statuses(unofficial_mirrors=UNOFFICIAL_MIRRORS)
+    results = mirror_statuses(
+                    mirrors=OFFICAL_MIRRORS,
+                    unofficial_mirrors=UNOFFICIAL_MIRRORS)
     if results:
         time_now = results[0].get('time_now', None)
     data = process_results(results)
