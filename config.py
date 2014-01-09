@@ -9,7 +9,6 @@ OFFICAL_MIRRORS = [
 
 # Add non-official mirrors here
 UNOFFICIAL_MIRRORS = [
-     'pypi.crate.io',
      'pypi.douban.com',
      'pypi.hustunique.com',
      'pypi.gocept.com',
