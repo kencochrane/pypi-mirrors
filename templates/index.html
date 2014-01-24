@@ -90,7 +90,19 @@
             </tbody>
         </table>
     </div>
-    <div class="span9"></div>
+
+    <div class="span4">
+        <h3>Using a mirror</h3>
+        <p><strong>Single Usage:</strong> <br/>
+          <pre>pip -i http://&lt;mirror&gt;/simple install &lt;package&gt;</pre>
+        <p><strong>Global settings:</strong> </br>
+          Add <code>~/.pip/pip.conf</code> that includes:
+          <pre>
+[global]
+index-url = http://&lt;mirror&gt;/simple</pre>
+        </p>
+    </div>
+    <div class="span5"></div>
     </div>
     <div class="row-fluid">
     <div class="span9">
