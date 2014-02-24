@@ -1,24 +1,11 @@
 import os
 import json
 
-# offical mirrors, no longer using auto-discovery since it is going away
-OFFICAL_MIRRORS = [
-    'c.pypi.python.org',
-    'e.pypi.python.org',
-]
-
-# Add non-official mirrors here
-UNOFFICIAL_MIRRORS = [
-     'pypi.douban.com',
-     'pypi.hustunique.com',
-     'pypi.gocept.com',
-]
-
-# If there is a mirror we want to ignore
-IGNORE_MIRRORS = [
-    'b.pypi.python.org',
-    'd.pypi.python.org',
-    'f.pypi.python.org',
+# mirrors listed here
+MIRRORS = [
+     ('http', 'pypi.douban.com'),
+     ('http', 'pypi.hustunique.com'),
+     ('http', 'pypi.gocept.com'),
 ]
 
 EMAIL_OVERRIDE = None # None or "blah@example.com"

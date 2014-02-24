@@ -1,5 +1,5 @@
-from pypimirrors import find_out_of_date_mirrors
-from config import UNOFFICIAL_MIRRORS
+from mirrorlib import find_out_of_date_mirrors
+from config import MIRRORS
 from notification import (update_twitter_status, send_warning_email,
                          send_status_email)
 
@@ -13,7 +13,7 @@ def __tweet_outofdate(mirror, last_update):
 
 def daily_out_of_date_mirror_check():
     """ run everything """
-    results = find_out_of_date_mirrors(unofficial_mirrors=UNOFFICIAL_MIRRORS)
+    results = find_out_of_date_mirrors(mirrors=MIRRORS)
 
     if results:
         email_message = ""
