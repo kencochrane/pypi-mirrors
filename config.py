@@ -6,6 +6,7 @@ MIRRORS = [
      ('http', 'pypi.douban.com'),
      ('http', 'pypi.hustunique.com'),
      ('http', 'pypi.gocept.com'),
+     ('http', 'pypi.tuna.tsinghua.edu.cn'),
 ]
 
 EMAIL_OVERRIDE = None # None or "blah@example.com"
