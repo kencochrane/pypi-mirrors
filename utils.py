@@ -1,5 +1,6 @@
 import redis
 import socket
+from urlparse import urlparse
 import requests
 import lxml.html
 
@@ -46,7 +47,15 @@ def get_location_for_mirror(mirror):
     if value:
         return pickle.loads(value)
 
-    ip = socket.gethostbyname(mirror)
+    # if we have a mirror name like mirror.domain.suffix/blah it won't work
+    try:
+        hostname = urlparse("http://{0}".format(mirror)).netloc
+    except Exception as exc:
+        # if error, just default to mirror that works most of the time
+        print("Error getting location for {0} \n {1}".format(mirror, exc))
+        hostname = mirror
+
+    ip = socket.gethostbyname(hostname)
     location = ping_ip2loc(ip)
     if location:
         conn.setex(loc_key, 86400, pickle.dumps(location)) # 1 day cache
