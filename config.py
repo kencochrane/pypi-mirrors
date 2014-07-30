@@ -8,6 +8,15 @@ MIRRORS = [
      ('http', 'pypi.gocept.com'),
      ('http', 'pypi.tuna.tsinghua.edu.cn'),
      ('http', 'mirror.picosecond.org/pypi'),
+     ('http', 'http://mirrors-uk.go-parts.com/python/'),
+     ('http', 'http://mirrors-ru.go-parts.com/python/'),
+     ('http', 'http://mirrors-au.go-parts.com/python/'),
+     ('ftp', 'ftp://mirrors-uk.go-parts.com/python/'),
+     ('ftp', 'ftp://mirrors-ru.go-parts.com/python/'),
+     ('ftp', 'ftp://mirrors-au.go-parts.com/python/'),
+     ('rsync', 'rsync://mirrors-uk.go-parts.com/python/'),
+     ('rsync', 'rsync://mirrors-ru.go-parts.com/python/'),
+     ('rsync', 'rsync://mirrors-au.go-parts.com/python/')
 ]
 
 EMAIL_OVERRIDE = None # None or "blah@example.com"
@@ -59,5 +68,5 @@ def load_config():
                      'email_to_admin': env.get('EMAIL_TO_ADMIN', None),
                      }
         else:
-            print("can't find a local envirornment file here '/tmp/environment.json' ")
+            print("can't find a local environment file here '/tmp/environment.json' ")
             return None #TODO throw exception?
