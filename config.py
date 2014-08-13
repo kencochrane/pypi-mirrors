@@ -11,12 +11,15 @@ MIRRORS = [
      ('http', 'http://mirrors-uk.go-parts.com/python/'),
      ('http', 'http://mirrors-ru.go-parts.com/python/'),
      ('http', 'http://mirrors-au.go-parts.com/python/'),
+     ('http', 'http://mirrors-usa.go-parts.com/python/'),
      ('ftp', 'ftp://mirrors-uk.go-parts.com/python/'),
      ('ftp', 'ftp://mirrors-ru.go-parts.com/python/'),
      ('ftp', 'ftp://mirrors-au.go-parts.com/python/'),
+     ('ftp', 'ftp://mirrors-usa.go-parts.com/python/'),
      ('rsync', 'rsync://mirrors-uk.go-parts.com/python/'),
      ('rsync', 'rsync://mirrors-ru.go-parts.com/python/'),
-     ('rsync', 'rsync://mirrors-au.go-parts.com/python/')
+     ('rsync', 'rsync://mirrors-au.go-parts.com/python/'),
+     ('rsync', 'rsync://mirrors-usa.go-parts.com/python/')
 ]
 
 EMAIL_OVERRIDE = None # None or "blah@example.com"
