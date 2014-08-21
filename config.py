@@ -8,18 +8,15 @@ MIRRORS = [
      ('http', 'pypi.gocept.com'),
      ('http', 'pypi.tuna.tsinghua.edu.cn'),
      ('http', 'mirror.picosecond.org/pypi'),
-     ('http', 'http://mirrors-uk.go-parts.com/python/'),
-     ('http', 'http://mirrors-ru.go-parts.com/python/'),
-     ('http', 'http://mirrors-au.go-parts.com/python/'),
-     ('http', 'http://mirrors-usa.go-parts.com/python/'),
-     ('ftp', 'ftp://mirrors-uk.go-parts.com/python/'),
-     ('ftp', 'ftp://mirrors-ru.go-parts.com/python/'),
-     ('ftp', 'ftp://mirrors-au.go-parts.com/python/'),
-     ('ftp', 'ftp://mirrors-usa.go-parts.com/python/'),
-     ('rsync', 'rsync://mirrors-uk.go-parts.com/python/'),
-     ('rsync', 'rsync://mirrors-ru.go-parts.com/python/'),
-     ('rsync', 'rsync://mirrors-au.go-parts.com/python/'),
-     ('rsync', 'rsync://mirrors-usa.go-parts.com/python/')
+     ('http', 'http://pypi.mirrors-uk.go-parts.com/'),
+     ('http', 'http://pypi.mirrors-ru.go-parts.com/'),
+     ('http', 'http://pypi.mirrors-usa.go-parts.com/'),
+     ('ftp', 'ftp://pypi.mirrors-uk.go-parts.com/python/'),
+     ('ftp', 'ftp://pypi.mirrors-ru.go-parts.com/python/'),
+     ('ftp', 'ftp://pypi.mirrors-usa.go-parts.com/python/'),
+     ('rsync', 'rsync://pypi.mirrors-uk.go-parts.com/python/'),
+     ('rsync', 'rsync://pypi.mirrors-ru.go-parts.com/python/'),
+     ('rsync', 'rsync://pypi.mirrors-usa.go-parts.com/python/')
 ]
 
 EMAIL_OVERRIDE = None # None or "blah@example.com"
