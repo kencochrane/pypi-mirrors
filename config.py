@@ -8,15 +8,9 @@ MIRRORS = [
      ('http', 'pypi.gocept.com'),
      ('http', 'pypi.tuna.tsinghua.edu.cn'),
      ('http', 'mirror.picosecond.org/pypi'),
-     ('http', 'http://pypi.mirrors-uk.go-parts.com/'),
-     ('http', 'http://pypi.mirrors-ru.go-parts.com/'),
-     ('http', 'http://pypi.mirrors-usa.go-parts.com/'),
-     ('ftp', 'ftp://pypi.mirrors-uk.go-parts.com/python/'),
-     ('ftp', 'ftp://pypi.mirrors-ru.go-parts.com/python/'),
-     ('ftp', 'ftp://pypi.mirrors-usa.go-parts.com/python/'),
-     ('rsync', 'rsync://pypi.mirrors-uk.go-parts.com/python/'),
-     ('rsync', 'rsync://pypi.mirrors-ru.go-parts.com/python/'),
-     ('rsync', 'rsync://pypi.mirrors-usa.go-parts.com/python/')
+     ('http', 'pypi.mirrors-uk.go-parts.com'),
+     ('http', 'pypi.mirrors-ru.go-parts.com'),
+     ('http', 'pypi.mirrors-usa.go-parts.com')
 ]
 
 EMAIL_OVERRIDE = None # None or "blah@example.com"
