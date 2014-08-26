@@ -8,6 +8,7 @@ MIRRORS = [
      ('http', 'pypi.gocept.com'),
      ('http', 'pypi.tuna.tsinghua.edu.cn'),
      ('http', 'mirror.picosecond.org/pypi'),
+     ('http', 'mirrors.aliyun.com/pypi'),
      ('http', 'pypi.pubyun.com'),
 ]
 
