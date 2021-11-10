@@ -30,7 +30,7 @@ def ping_ip2loc(ip):
     """ get the location info for the ip
     you need to register for an API key here. http://ipinfodb.com/register.php
 
-    and set it as an envirornment variable called
+    and set it as an environment variable called
     PYPI_MIRRORS_API_KEY
 
     """
